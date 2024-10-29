@@ -1,7 +1,7 @@
-use std::sync::Arc;
 use anyhow::Result;
-use tokio::net::TcpListener;
 use simple_cache::Cache;
+use std::sync::Arc;
+use tokio::net::TcpListener;
 
 #[tokio::main]
 async fn main() -> Result<()> {
