@@ -2,12 +2,12 @@ mod bucket;
 mod error;
 
 use std::collections::HashMap;
-use std::sync::{Arc};
+use std::sync::Arc;
 use tokio::sync::Mutex;
 
+use anyhow::Result;
 pub use bucket::Bucket;
 pub use error::RateLimitError;
-use anyhow::Result;
 
 #[derive(Clone)]
 pub struct RateLimiter {
@@ -17,13 +17,15 @@ pub struct RateLimiter {
 impl RateLimiter {
     pub fn new() -> Self {
         Self {
-            buckets: Arc::new(Mutex::new(HashMap::new()))
+            buckets: Arc::new(Mutex::new(HashMap::new())),
         }
     }
 
     pub async fn try_acquire(&self, key: &str) -> Result<()> {
         let mut buckets = self.buckets.lock().await;
-        let bucket = buckets.entry(key.to_string()).or_insert_with(|| { Bucket::new() });
+        let bucket = buckets
+            .entry(key.to_string())
+            .or_insert_with(|| Bucket::new());
         let result = if bucket.try_acquire() {
             Ok(())
         } else {

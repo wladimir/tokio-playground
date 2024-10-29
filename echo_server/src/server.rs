@@ -1,5 +1,5 @@
-use crate::error::ServerError::{ConnectionClosed, IoError};
 use crate::error::Result;
+use crate::error::ServerError::{ConnectionClosed, IoError};
 use tokio::io::{AsyncReadExt, AsyncWriteExt};
 use tokio::net::{TcpListener, TcpStream};
 
@@ -10,7 +10,7 @@ pub struct Server {
 impl Server {
     pub fn new(address: impl Into<String>) -> Self {
         Self {
-            address: address.into()
+            address: address.into(),
         }
     }
 
@@ -41,7 +41,7 @@ async fn handle(mut socket: TcpStream) -> Result<()> {
                 socket.write_all(&buffer[..n]).await?;
                 socket.flush().await.expect("Failed to flush");
             }
-            Err(e) => return Err(IoError(e))
+            Err(e) => return Err(IoError(e)),
         };
     }
 }

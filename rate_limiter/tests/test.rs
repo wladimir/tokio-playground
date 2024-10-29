@@ -1,7 +1,7 @@
-use tokio::time::sleep;
-use std::time::Duration;
 use anyhow::Result;
 use rate_limiter::RateLimiter;
+use std::time::Duration;
+use tokio::time::sleep;
 
 #[tokio::test]
 async fn test_basic_rate_limiting() -> Result<()> {

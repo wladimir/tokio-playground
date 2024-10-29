@@ -1,9 +1,9 @@
-mod error;
 mod bucket;
+mod error;
 
-use std::time::Duration;
 use anyhow::Result;
 use rate_limiter::RateLimiter;
+use std::time::Duration;
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -13,7 +13,7 @@ async fn main() -> Result<()> {
     for i in 1..=8 {
         match limiter.try_acquire(key).await {
             Ok(()) => println!("Allowed {}", i),
-            Err(e) => println!("Denied {} {}", i, e)
+            Err(e) => println!("Denied {} {}", i, e),
         }
 
         tokio::time::sleep(Duration::from_millis(100)).await;
@@ -24,7 +24,7 @@ async fn main() -> Result<()> {
     for i in 9..=12 {
         match limiter.try_acquire(key).await {
             Ok(()) => println!("Allowed {}", i),
-            Err(e) => println!("Denied {} {}", i, e)
+            Err(e) => println!("Denied {} {}", i, e),
         }
     }
 

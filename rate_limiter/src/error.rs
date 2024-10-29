@@ -2,13 +2,13 @@ use std::fmt::{Display, Formatter};
 
 #[derive(Debug)]
 pub enum RateLimitError {
-    LimitExceeded
+    LimitExceeded,
 }
 
 impl Display for RateLimitError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            RateLimitError::LimitExceeded => write!(f, "rate limit exceeded")
+            RateLimitError::LimitExceeded => write!(f, "rate limit exceeded"),
         }
     }
 }

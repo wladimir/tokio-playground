@@ -1,4 +1,3 @@
-use crate::error::ServerError::IoError;
 use std::fmt::{Display, Formatter};
 use std::io::Error;
 
@@ -12,7 +11,7 @@ impl Display for ServerError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
             ServerError::IoError(err) => write!(f, "IO error {}", err),
-            ServerError::ConnectionClosed => write!(f, "Connection closed")
+            ServerError::ConnectionClosed => write!(f, "Connection closed"),
         }
     }
 }
@@ -20,7 +19,7 @@ impl Display for ServerError {
 // convert std error into our IoError
 impl From<Error> for ServerError {
     fn from(err: Error) -> Self {
-        IoError(err)
+        ServerError::IoError(err)
     }
 }
 
